@@ -1,0 +1,28 @@
+{
+    "clientesbanco": [
+        {
+            "Nombre": "Sebastian",
+            "Primer_Apellido": "Fallas",
+            "Segundo_Apellido": "Fallas",
+            "Edad": "55",
+            "Fondos_en_cuenta": "10000",
+            "Tipo_de_cuenta": "Corriente"
+        },
+        {
+            "Nombre": "Steven",
+            "Primer_Apellido": "Chacon",
+            "Segundo_Apellido": "Salas",
+            "Edad": "19",
+            "Fondos_en_cuenta": "10000",
+            "Tipo_de_cuenta": "Corriente"
+        },
+        {
+            "Nombre": "Damian",
+            "Primer_Apellido": "Campos",
+            "Segundo_Apellido": "Montero",
+            "Edad": "19",
+            "Fondos_en_cuenta": "10000",
+            "Tipo_de_cuenta": "Corriente"
+        }
+    ]
+}
