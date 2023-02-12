@@ -3,6 +3,37 @@
 import zmq 
 import json
 
+def registrar(informacion)
+
+    # Contenido del mensaje
+
+    nombre = informacion[1]
+    contra = informacion[2]
+    # primer_ingreso = informacion[3] #  falta agregar
+
+    try:
+        with open('Datos_Bancarios.json') as file:
+            archivo = json.load(file)
+            archivo['clientesbanco'].append({
+                'nombre': nombre,
+                'contra': contra
+            })
+
+        with open('Datos_Bancarios.json', 'w') as file: 
+            json.dump(archivo, file, indent=4)
+
+        
+
+    except FileNotFoundError:
+        archivo = {}
+        archivo['clientesbanco'] = []
+        archivo['clientesbanco'].append({
+            'nombre': nombre,
+            'contra': contra
+        })
+
+    socket.send_string("Anadido a la base de datos")
+
 def mensajeria():
 
     # Crear contexto. Conectar socket
@@ -20,39 +51,7 @@ def mensajeria():
         opcion = informacion[0]
 
         if opcion == 'Registar':
-
-
-
-
-        print("Enviado: %s" % mansaje)
-        clientes_str = ''
-        for clientes in servidor["clientesbanco"]:
-            clientes_str += clientes[mansaje] + ", "
-
-        socket.send_string(clientes_str)
-
-
-
-
-
-
-
-
-
-try:
-    with open('Datos_Bancarios.json', 'a') as file:
-        servidor = json.load(file)
-except FileNotFoundError:
-    servidor = {}
-    servidor['clientesbanco'] = []
-    
-    servidor['clientesbanco'].append({
-        'nombre': self.usuario.get()})
-    
-    
-    with open('Datos_Bancarios.json', 'w') as file:
-        json.dump(servidor, file, indent=4)
-    
+            registrar(informacion)
 
 
 if __name__ == '__main__':
