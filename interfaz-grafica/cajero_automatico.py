@@ -15,12 +15,12 @@ class Cajero():
 
         self.context = zmq.Context()
         self.socket = self.context.socket(zmq.REQ)
-        self.socket.connect("tcp://localhost:5555")
+        self.socket.connect("tcp://10.0.2.4:5555")
 
         # Ventana principal
 
         self.ventana = tk.Tk()
-        self.ventana.geometry('562x750+500+20')
+        self.ventana.geometry('562x750+700+20')
         self.ventana.title('Cajero automático')
         self.ventana.resizable(False, False)
         self.ventana.config(bg = 'lightblue') # #DFDFD0 #DFDFDB
@@ -308,15 +308,15 @@ class Cajero():
 
             # Conteseña
 
-            contra = randint(1000, 9999)
+            contra = str(randint(1000, 9999))
 
             # Labals
 
-            # texto registro exitoso
+            # Texto registro exitoso
 
             self.text_registro_exitoso = tk.Label(
                 self.pantalla,
-                text = 'Registro Exitoso\nDebe recordar los siguientes'
+                text = 'Registro Exitoso\nDebe recordar los siguientes '
                 'datos\npara poder iniciar seción')
             self.text_registro_exitoso.place(x = 40, y = 100)
             self.text_registro_exitoso.config(
@@ -337,6 +337,12 @@ class Cajero():
                 self.pantalla, text = 'Contraseña: {}'.format(contra))
             self.text_contra.place(x = 30, y = 250)
             self.text_contra.config(fg = '#003333', bg = '#ACACAC', font = 40)
+
+            # Guardar datos en el servidor 
+
+            self.socket.send_string('{}/{}/{}'.format('Registrar', self.usuario.get(), contra))
+            message = self.socket.recv().decode("utf-8")
+            
 
         else:
             self.registrar()

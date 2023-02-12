@@ -3,7 +3,7 @@
 import zmq 
 import json
 
-def registrar(informacion)
+def registrar(informacion, socket):
 
     # Contenido del mensaje
 
@@ -31,9 +31,11 @@ def registrar(informacion)
             'nombre': nombre,
             'contra': contra
         })
+        with open('Datos_Bancarios.json', 'w') as file: 
+            json.dump(archivo, file, indent=4)
 
     socket.send_string("Anadido a la base de datos")
-
+    print('El usuario {} ha sido anadido a la base de datos'.format(nombre))
 def mensajeria():
 
     # Crear contexto. Conectar socket
@@ -44,14 +46,14 @@ def mensajeria():
     # Resivir mensajes
 
     while True:
-        mesaje = socket.recv().decode("utf-8")
-
-        informacion = mansaje.split('/')
-
+        mensaje = socket.recv()
+        
+        mensaje = mensaje.decode("utf-8")
+        informacion = mensaje.split('/')
         opcion = informacion[0]
-
-        if opcion == 'Registar':
-            registrar(informacion)
+        
+        if opcion == 'Registrar':
+            registrar(informacion, socket)
 
 
 if __name__ == '__main__':
